@@ -1,7 +1,7 @@
 import os
 
 from models.dataset import load_process_dataset
-from models.identification import identify_all
+from models.identification import identify_all, simulate_open_loop
 from models.metrics import calculate_response_metrics
 from models.simulation import simulate_closed_loop
 from models.tuning import PIDParameters, tune_by_method
@@ -48,6 +48,7 @@ class MainController:
 
         self.selected_model = self.identification_results[0]
         self.view.tune_button.setEnabled(True)
+        self._plot_dataset(include_models=True)
         self._show_identification_results()
 
     def tune_pid(self):
@@ -90,14 +91,31 @@ class MainController:
         self.view.control_plot.figure.savefig(path, dpi=150)
         self.view.show_info("Grafico exportado com sucesso.")
 
-    def _plot_dataset(self):
+    def _plot_dataset(self, include_models=False):
         axes = self.view.identification_plot.axes
         axes.clear()
         axes.plot(self.dataset.time, self.dataset.input_signal, label="Entrada")
-        axes.plot(self.dataset.time, self.dataset.output_signal, label="Saida")
+        axes.plot(self.dataset.time, self.dataset.output_signal, label="Saida experimental", linewidth=2)
+
+        if include_models:
+            for result in self.identification_results:
+                simulated = simulate_open_loop(
+                    self.dataset.time,
+                    self.dataset.step_time,
+                    self.dataset.input_delta,
+                    self.dataset.output_initial,
+                    result.k,
+                    result.tau,
+                    result.theta,
+                )
+                label = f"Modelo {result.method} (EQM={result.mse:.4g})"
+                axes.plot(self.dataset.time, simulated, linestyle="--", label=label)
+
         axes.axvline(self.dataset.step_time, color="gray", linestyle="--", label="Degrau")
-        axes.set_title("Dados experimentais")
+        title = "Comparacao entre dados experimentais e modelos identificados" if include_models else "Dados experimentais"
+        axes.set_title(title)
         axes.set_xlabel("Tempo (s)")
+        axes.set_ylabel("Amplitude")
         axes.grid(True)
         axes.legend()
         self.view.identification_plot.draw()
