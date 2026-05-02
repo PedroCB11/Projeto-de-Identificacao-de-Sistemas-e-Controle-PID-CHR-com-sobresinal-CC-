@@ -38,11 +38,14 @@ Aplicação desktop em Python com interface gráfica (PyQt5) para:
 ├── README.md                            ← documentação principal (este arquivo)
 ├── Dataset_Grupo1_c213 (1).mat          ← dataset experimental do Grupo 1
 │
-├── assets/                              ← gráficos gerados dos resultados
-│   ├── identificacao_grupo1.png
-│   ├── controle_chr_grupo1.png
-│   ├── controle_cc_grupo1.png
-│   └── comparacao_metodos_grupo1.png
+├── assets/                              ← gráficos gerados dos resultados e prints da IHM
+│   ├── identificacao_grupo1.png         ← resultado da identificação FOPDT
+│   ├── controle_chr_grupo1.png          ← resposta CHR com sobresinal
+│   ├── controle_cc_grupo1.png           ← resposta Cohen-Coon
+│   ├── comparacao_metodos_grupo1.png    ← comparação dos dois métodos
+│   ├── ihm_aba_identificacao.png        ← print da aba Identificação
+│   ├── ihm_aba_controle.png             ← print da aba Controle PID
+│   └── ihm_aba_graficos.png             ← print da aba Gráficos
 │
 ├── tests/                               ← testes automatizados (pytest)
 │   ├── conftest.py                      ← fixtures compartilhadas
@@ -286,6 +289,19 @@ A ordem 2 oferece melhor acurácia que a ordem 1, reduzindo o artefato de pico n
 
 Dataset: `Dataset_Grupo1_c213 (1).mat`  
 Parâmetros reais do processo: k = 1,08 · τ = 17,0 s · θ = 3,0 s · Degrau = 60
+
+### Prints da Interface (IHM)
+
+#### Aba Identificação
+![IHM Identificação](assets/ihm_aba_identificacao.png)
+
+#### Aba Controle PID
+![IHM Controle PID](assets/ihm_aba_controle.png)
+
+#### Aba Gráficos
+![IHM Gráficos](assets/ihm_aba_graficos.png)
+
+---
 
 ### Identificação
 
