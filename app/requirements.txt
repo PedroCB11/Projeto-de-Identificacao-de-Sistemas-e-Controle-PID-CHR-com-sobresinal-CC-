@@ -1,5 +1,7 @@
-numpy
-scipy
-matplotlib
-control
-PyQt5
+numpy>=1.24
+scipy>=1.10
+matplotlib>=3.7
+control>=0.9
+PyQt5>=5.15
+pytest>=7.0
+pytest-cov>=4.0
