@@ -36,7 +36,6 @@ Aplicação desktop em Python com interface gráfica (PyQt5) para:
 .
 ├── .gitignore
 ├── README.md                            ← documentação principal (este arquivo)
-├── CHECKLIST.md                         ← checklist de entregas do projeto
 ├── Dataset_Grupo1_c213 (1).mat          ← dataset experimental do Grupo 1
 │
 ├── assets/                              ← gráficos gerados dos resultados
@@ -83,8 +82,8 @@ Aplicação desktop em Python com interface gráfica (PyQt5) para:
 
 ```bash
 # 1. Clone o repositório
-git clone https://github.com/<usuario>/<repositorio>.git
-cd <repositorio>
+git clone https://github.com/PedroCB11/Projeto-de-Identificacao-de-Sistemas-e-Controle-PID-CHR-com-sobresinal-CC-.git
+cd Projeto-de-Identificacao-de-Sistemas-e-Controle-PID-CHR-com-sobresinal-CC-
 
 # 2. Crie e ative o ambiente virtual (recomendado)
 python -m venv .venv
@@ -396,6 +395,15 @@ python -m pytest tests/ -v
 - Adicionar zoom interativo nos gráficos via `matplotlib.widgets`.
 - Implementar exportação de relatório em PDF com todos os parâmetros e métricas.
 - Suporte a datasets com ruído: pré-processamento com filtro de média móvel.
+
+---
+
+## Colaboradores
+
+| Usuário GitHub | Papel |
+|----------------|-------|
+| [@PedroCB11](https://github.com/PedroCB11) | Dono do repositório |
+| [@hfc10](https://github.com/hfc10) | Colaborador |
 
 ---
 

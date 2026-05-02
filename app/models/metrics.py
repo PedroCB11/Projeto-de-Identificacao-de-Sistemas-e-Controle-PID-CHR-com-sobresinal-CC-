@@ -68,15 +68,15 @@ def _rise_time(time, response, setpoint):
 def _settling_time(time, response, setpoint, settling_band):
     """Tempo de acomodação usando banda de ±settling_band*|setpoint|.
 
-    A banda é calculada sobre o valor do setpoint (não o valor final),
-    garantindo o critério correto de ±2% da referência.
+    A banda é centrada no setpoint (referência), não no valor final,
+    garantindo o critério correto de ±2% da referência independentemente
+    do erro em regime permanente.
     """
     # Usa o setpoint como referência da banda; fallback para final_value se sp=0
     reference = abs(setpoint) if setpoint != 0 else abs(float(response[-1]))
     band = settling_band * max(reference, 1e-9)
-    final_value = float(response[-1])
 
-    outside = np.where(np.abs(response - final_value) > band)[0]
+    outside = np.where(np.abs(response - setpoint) > band)[0]
     if len(outside) == 0:
         return 0.0
     last_outside = outside[-1]
