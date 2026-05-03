@@ -1,3 +1,4 @@
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (
     QComboBox,
     QFileDialog,
@@ -32,14 +33,45 @@ class PlotCanvas(FigureCanvas):
 
 
 class MainWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, user_name: str = ""):
         super().__init__()
         self.controller = None
+        self.user_name = user_name
         self.setWindowTitle("Identificação de Sistemas e Controle PID — Grupo 1")
         self.resize(1200, 750)
 
+        # Widget central com header + abas
+        central = QWidget()
+        central_layout = QVBoxLayout(central)
+        central_layout.setContentsMargins(0, 0, 0, 0)
+        central_layout.setSpacing(0)
+
+        # ── Header ──────────────────────────────────────────────────────
+        header = QWidget()
+        header.setStyleSheet("background-color: #2c3e50;")
+        header.setFixedHeight(48)
+        header_layout = QHBoxLayout(header)
+        header_layout.setContentsMargins(16, 0, 16, 0)
+
+        app_title = QLabel("Projeto Prático C213 — Sistemas Embarcados")
+        app_title.setStyleSheet("color: #ecf0f1; font-size: 13px; font-weight: bold;")
+
+        self.user_label = QLabel()
+        self.user_label.setStyleSheet("color: #bdc3c7; font-size: 12px;")
+        self.user_label.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
+        if user_name:
+            self.user_label.setText(f"👤  {user_name}")
+
+        header_layout.addWidget(app_title)
+        header_layout.addStretch()
+        header_layout.addWidget(self.user_label)
+        # ────────────────────────────────────────────────────────────────
+
         self.tabs = QTabWidget()
-        self.setCentralWidget(self.tabs)
+
+        central_layout.addWidget(header)
+        central_layout.addWidget(self.tabs, stretch=1)
+        self.setCentralWidget(central)
 
         self._build_identification_tab()
         self._build_pid_tab()
